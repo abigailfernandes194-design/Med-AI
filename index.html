@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MedAI | AI in Local Healthcare</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- =====================================================
+     NAVIGATION BAR
+===================================================== -->
+
+<header>
+
+    <nav class="navbar">
+
+        <a href="#home" class="logo">
+            <span>✚</span> MedAI
+        </a>
+
+        <button class="menu-btn" id="menuBtn">
+            ☰
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+
+            <li>
+                <a href="#home">Home</a>
+            </li>
+
+            <li>
+                <a href="#about">About</a>
+            </li>
+
+            <li>
+                <a href="#symptoms">AI Health Check</a>
+            </li>
+
+            <li>
+                <a href="#appointment">Appointment</a>
+            </li>
+
+            <li>
+                <a href="#staff">Our Staff</a>
+            </li>
+
+            <li>
+                <a href="#register">Register</a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+</header>
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section id="home" class="hero">
+
+    <div class="hero-content">
+
+        <div class="badge">
+            ✨ AI-Powered Local Healthcare
+        </div>
+
+        <h1>
+            Smarter Healthcare.
+            <span>Better Care.</span>
+        </h1>
+
+        <p>
+            MedAI uses AI-inspired healthcare technology to
+            make local healthcare services faster, smarter
+            and easier to access.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#symptoms" class="btn primary">
+                Check Symptoms →
+            </a>
+
+            <a href="#appointment" class="btn secondary">
+                Book Appointment
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-card">
+
+        <div class="pulse-icon">
+            ❤
+        </div>
+
+        <h2>
+            AI Healthcare Assistant
+        </h2>
+
+        <p>
+            Analyze selected symptoms and receive an
+            educational health suggestion.
+        </p>
+
+        <div class="online">
+            ● System Online
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section id="about" class="section">
+
+    <div class="section-title">
+
+        <span>ABOUT THE PROJECT</span>
+
+        <h2>
+            AI for
+            <strong>Local Healthcare</strong>
+        </h2>
+
+        <p>
+            Artificial Intelligence can support healthcare
+            professionals by analyzing information,
+            improving efficiency and helping patients
+            access healthcare services.
+        </p>
+
+    </div>
+
+
+    <div class="cards">
+
+        <div class="info-card">
+
+            <div class="card-icon">
+                🔍
+            </div>
+
+            <h3>
+                Early Detection
+            </h3>
+
+            <p>
+                AI-based systems can analyze symptoms and
+                health information to identify possible
+                health concerns.
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <div class="card-icon">
+                ⚡
+            </div>
+
+            <h3>
+                Faster Healthcare
+            </h3>
+
+            <p>
+                AI can help reduce repetitive tasks and
+                improve the efficiency of healthcare services.
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <div class="card-icon">
+                📊
+            </div>
+
+            <h3>
+                Better Decisions
+            </h3>
+
+            <p>
+                AI can analyze information and provide
+                useful insights to healthcare professionals.
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <div class="card-icon">
+                🌐
+            </div>
+
+            <h3>
+                Accessible Care
+            </h3>
+
+            <p>
+                Digital healthcare tools can improve access
+                to healthcare information and services.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     AI SYMPTOM CHECKER
+===================================================== -->
+
+<section id="symptoms" class="checker-section">
+
+    <div class="section">
+
+        <div class="section-title">
+
+            <span>AI HEALTH CHECK</span>
+
+            <h2>
+                Analyze Your
+                <strong>Symptoms</strong>
+            </h2>
+
+            <p>
+                Select the symptoms you are experiencing.
+                The system will compare the selected symptoms
+                with conditions stored in its demonstration
+                knowledge base.
+            </p>
+
+        </div>
+
+
+        <div class="checker">
+
+
+            <!-- LEFT SIDE -->
+
+            <div class="symptom-box">
+
+                <h2>
+                    Select Symptoms
+                </h2>
+
+                <p class="small-text">
+                    Select all symptoms that apply.
+                </p>
+
+
+                <div class="symptoms-grid">
+
+                    <label class="symptom-option">
+                        <input type="checkbox" value="fever">
+                        <span>🌡️ Fever</span>
+                    </label>
+
+
+                    <label class="symptom-option">
+                        <input type="checkbox" value="cough">
+                        <span>😷 Cough</span>
+                    </label>
+
+
+                    <label class="symptom-option">
+                        <input type="checkbox" value="headache">
+                        <span>🤕 Headache</span>
+                    </label>
+
+
+                    <label class="symptom-option">
+                        <input type="checkbox" value="fatigue">
+                        <span>😴 Fatigue</span>
+                    </label>
+
+
+                    <label class="symptom-option">
+                        <input type="checkbox" value="sorethroat">
+                        <span>🗣️ Sore Throat</span>
+                    </label>
+
+
+                    <label class="symptom-option">
+                        <input type="checkbox" value="cold">
+                        <span>🤧 Runny Nose</span>
+                    </label>
+
+
+                    <label class="symptom-option">
+                        <input type="checkbox" value="stomach">
+                        <span>🤢 Stomach Pain</span>
+                    </label>
+
+
+                    <label class="symptom-option">
+                        <input type="checkbox" value="nausea">
+                        <span>🤮 Nausea</span>
+                    </label>
+
+
+                    <label class="symptom-option">
+                        <input type="checkbox" value="bodypain">
+                        <span>💢 Body Pain</span>
+                    </label>
+
+
+                    <label class="symptom-option">
+                        <input type="checkbox" value="dizziness">
+                        <span>😵 Dizziness</span>
+                    </label>
+
+
+                    <label class="symptom-option">
+                        <input type="checkbox" value="rash">
+                        <span>🔴 Skin Rash</span>
+                    </label>
+
+
+                    <label class="symptom-option">
+                        <input type="checkbox" value="itching">
+                        <span>🖐️ Itching</span>
+                    </label>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="analyzeBtn"
+                    class="btn primary analyze-btn">
+
+                    🔍 Analyze Symptoms
+
+                </button>
+
+
+                <button
+                    type="button"
+                    id="clearBtn"
+                    class="clear-btn">
+
+                    Clear Selection
+
+                </button>
+
+            </div>
+
+
+            <!-- RIGHT SIDE -->
+
+            <div class="result-box" id="resultBox">
+
+                <div class="robot">
+                    🤖
+                </div>
+
+                <h2>
+                    AI Health Assistant
+                </h2>
+
+                <p>
+                    Select your symptoms and click
+                    <strong>Analyze Symptoms</strong>
+                    to receive a result.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="warning">
+
+            ⚠️ <strong>Important:</strong>
+            This is an educational demonstration and does
+            not provide a medical diagnosis. Symptoms can
+            have multiple causes. For real medical concerns,
+            consult a qualified healthcare professional.
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     APPOINTMENT
+===================================================== -->
+
+<section id="appointment" class="section">
+
+    <div class="section-title">
+
+        <span>HEALTHCARE SERVICES</span>
+
+        <h2>
+            Book an
+            <strong>Appointment</strong>
+        </h2>
+
+        <p>
+            Schedule a consultation with a healthcare professional.
+        </p>
+
+    </div>
+
+
+    <div class="form-container">
+
+        <form id="appointmentForm">
+
+            <div class="form-row">
+
+                <div class="input-group">
+
+                    <label>
+                        Patient Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="patientName"
+                        placeholder="Enter your name"
+                        required>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        placeholder="Enter phone number"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="input-group">
+
+                    <label>
+                        Appointment Date
+                    </label>
+
+                    <input
+                        type="date"
+                        required>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Department
+                    </label>
+
+                    <select required>
+
+                        <option value="">
+                            Select Department
+                        </option>
+
+                        <option>
+                            General Medicine
+                        </option>
+
+                        <option>
+                            Cardiology
+                        </option>
+
+                        <option>
+                            Pediatrics
+                        </option>
+
+                        <option>
+                            Dermatology
+                        </option>
+
+                        <option>
+                            Orthopedics
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>
+                    Reason for Appointment
+                </label>
+
+                <textarea
+                    rows="4"
+                    placeholder="Describe your concern">
+                </textarea>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="btn primary full">
+
+                📅 Confirm Appointment
+
+            </button>
+
+        </form>
+
+
+        <div id="appointmentMessage"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     STAFF DATABASE
+===================================================== -->
+
+<section id="staff" class="staff-section">
+
+    <div class="section">
+
+        <div class="section-title">
+
+            <span>HEALTHCARE TEAM</span>
+
+            <h2>
+                Hospital
+                <strong>Staff Database</strong>
+            </h2>
+
+            <p>
+                View information about healthcare professionals
+                available at the hospital.
+            </p>
+
+        </div>
+
+
+        <div class="staff-grid">
+
+
+            <div class="staff-card">
+
+                <div class="doctor">
+                    👨‍⚕️
+                </div>
+
+                <h3>
+                    Dr. Rahul Sharma
+                </h3>
+
+                <p class="speciality">
+                    General Physician
+                </p>
+
+                <p>
+                    12+ years experience
+                </p>
+
+                <button
+                    class="profile-btn"
+                    onclick="showStaff(
+                    'Dr. Rahul Sharma',
+                    'General Physician',
+                    '12+ years experience',
+                    'Monday - Friday')">
+
+                    View Profile
+
+                </button>
+
+            </div>
+
+
+            <div class="staff-card">
+
+                <div class="doctor">
+                    👩‍⚕️
+                </div>
+
+                <h3>
+                    Dr. Priya Mehta
+                </h3>
+
+                <p class="speciality">
+                    Cardiologist
+                </p>
+
+                <p>
+                    10+ years experience
+                </p>
+
+                <button
+                    class="profile-btn"
+                    onclick="showStaff(
+                    'Dr. Priya Mehta',
+                    'Cardiologist',
+                    '10+ years experience',
+                    'Tuesday - Saturday')">
+
+                    View Profile
+
+                </button>
+
+            </div>
+
+
+            <div class="staff-card">
+
+                <div class="doctor">
+                    👨‍⚕️
+                </div>
+
+                <h3>
+                    Dr. Arjun Patel
+                </h3>
+
+                <p class="speciality">
+                    Pediatrician
+                </p>
+
+                <p>
+                    8+ years experience
+                </p>
+
+                <button
+                    class="profile-btn"
+                    onclick="showStaff(
+                    'Dr. Arjun Patel',
+                    'Pediatrician',
+                    '8+ years experience',
+                    'Monday - Saturday')">
+
+                    View Profile
+
+                </button>
+
+            </div>
+
+
+            <div class="staff-card">
+
+                <div class="doctor">
+                    👩‍⚕️
+                </div>
+
+                <h3>
+                    Dr. Ananya Rao
+                </h3>
+
+                <p class="speciality">
+                    Dermatologist
+                </p>
+
+                <p>
+                    7+ years experience
+                </p>
+
+                <button
+                    class="profile-btn"
+                    onclick="showStaff(
+                    'Dr. Ananya Rao',
+                    'Dermatologist',
+                    '7+ years experience',
+                    'Monday - Thursday')">
+
+                    View Profile
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     BENEFITS & CHALLENGES
+===================================================== -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <span>PROJECT ANALYSIS</span>
+
+        <h2>
+            Benefits &
+            <strong>Challenges</strong>
+        </h2>
+
+    </div>
+
+
+    <div class="comparison">
+
+        <div class="benefits">
+
+            <h2>
+                ✓ Benefits
+            </h2>
+
+            <ul>
+
+                <li>
+                    Early identification of possible health concerns
+                </li>
+
+                <li>
+                    Faster analysis of information
+                </li>
+
+                <li>
+                    Improved patient monitoring
+                </li>
+
+                <li>
+                    Reduced administrative workload
+                </li>
+
+                <li>
+                    Better access to healthcare information
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <div class="challenges">
+
+            <h2>
+                ⚠ Challenges
+            </h2>
+
+            <ul>
+
+                <li>
+                    Patient data privacy concerns
+                </li>
+
+                <li>
+                    High implementation cost
+                </li>
+
+                <li>
+                    Need for trained professionals
+                </li>
+
+                <li>
+                    Technology limitations
+                </li>
+
+                <li>
+                    Lack of trust or acceptance
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     REGISTRATION
+===================================================== -->
+
+<section id="register" class="register-section">
+
+    <div class="section">
+
+        <div class="section-title">
+
+            <span>JOIN MEDAI</span>
+
+            <h2>
+                Patient
+                <strong>Registration</strong>
+            </h2>
+
+            <p>
+                Create a patient profile to access healthcare services.
+            </p>
+
+        </div>
+
+
+        <div class="form-container">
+
+            <form id="registrationForm">
+
+                <div class="form-row">
+
+                    <div class="input-group">
+
+                        <label>
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            placeholder="Enter full name"
+                            required>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            placeholder="Enter email"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="input-group">
+
+                        <label>
+                            Date of Birth
+                        </label>
+
+                        <input
+                            type="date"
+                            required>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>
+                            Gender
+                        </label>
+
+                        <select required>
+
+                            <option value="">
+                                Select Gender
+                            </option>
+
+                            <option>
+                                Male
+                            </option>
+
+                            <option>
+                                Female
+                            </option>
+
+                            <option>
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        placeholder="Create password"
+                        required>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn primary full">
+
+                    Create Patient Account
+
+                </button>
+
+            </form>
+
+
+            <div id="registrationMessage"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div class="footer-content">
+
+        <div>
+
+            <a href="#home" class="footer-logo">
+                ✚ MedAI
+            </a>
+
+            <p>
+                AI-inspired solutions for better local healthcare.
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h3>
+                Quick Links
+            </h3>
+
+            <a href="#home">
+                Home
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+            <a href="#symptoms">
+                AI Health Check
+            </a>
+
+            <a href="#appointment">
+                Appointment
+            </a>
+
+        </div>
+
+
+        <div>
+
+            <h3>
+                Contact
+            </h3>
+
+            <p>
+                📍 Local Healthcare Centre
+            </p>
+
+            <p>
+                📞 +91 98765 43210
+            </p>
+
+            <p>
+                ✉ info@medai.com
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="copyright">
+
+        © 2026 MedAI | AI in Local Healthcare
+
+    </div>
+
+</footer>
+
+
+<!-- =====================================================
+     STAFF MODAL
+===================================================== -->
+
+<div class="modal" id="staffModal">
+
+    <div class="modal-content">
+
+        <button
+            class="close"
+            onclick="closeModal()">
+
+            ×
+
+        </button>
+
+        <div id="staffDetails"></div>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
