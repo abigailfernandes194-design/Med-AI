@@ -1,1055 +1,421 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>MedAI | AI in Local Healthcare</title>
-
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MedAI | AI in Local Healthcare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F2F8F6;--ink:#0D2B2C;--mute:#4F6B6C;--teal:#0F766E;--deep:#0A4F4A;--mint:#D3EEE6;--coral:#FF6F59;--card:#fff;--line:#D5E6E1;--r:18px;--hdr:rgba(242,248,246,.88);--soft:#E6F2EE;--pro:#EAF7F2;--con:#FFF4F1;--notebg:#FFF1EE;--noteink:#5a2a22}
+[data-theme=dark]{--bg:#09191A;--ink:#E3F0ED;--mute:#97B3AF;--teal:#34C2B3;--deep:#0E4A45;--mint:#123B38;--card:#102526;--line:#224445;--hdr:rgba(9,25,26,.88);--soft:#0D2122;--pro:#0F2E2B;--con:#2E1A17;--notebg:#2E1A17;--noteink:#FFD2C9}
+[data-theme=dark] .btn,[data-theme=dark] .chip[aria-pressed=true],[data-theme=dark] .m.me,[data-theme=dark] #cf button{color:#04201E}
+[data-theme=dark] .btn.alt,[data-theme=dark] .pill{color:var(--teal)}
+[data-theme=dark] .logo{color:#fff}
+[data-theme=dark] .btn:hover{background:#5FD6C9}
+[data-theme=dark] .btn.alt:hover{background:var(--mint)}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{font:16px/1.65 'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.15;font-weight:700}
+h2{font-size:clamp(1.9rem,4vw,2.7rem);margin-bottom:.6rem}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+.wrap{max-width:1080px;margin:auto;padding:0 22px}
+section{padding:84px 0}
+.lead{color:var(--mute);max-width:56ch;margin-bottom:2.2rem}
+/* nav */
+header{position:sticky;top:0;z-index:20;background:var(--hdr);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+.logo{font:700 1.4rem Fraunces,serif;text-decoration:none;color:var(--deep)}
+.logo b{color:var(--coral)}
+.links{display:flex;gap:6px;list-style:none;padding:0}
+.links a{display:block;padding:8px 13px;border-radius:99px;text-decoration:none;font-weight:500;font-size:.95rem}
+.links a:hover{background:var(--mint)}
+.menu{display:none;background:none;border:0;font-size:1.6rem;cursor:pointer;color:var(--ink)}
+.btn{display:inline-block;border:0;cursor:pointer;font:700 1rem 'DM Sans',sans-serif;padding:14px 26px;border-radius:99px;background:var(--teal);color:#fff;text-decoration:none;transition:transform .15s,background .15s}
+.btn:hover{background:var(--deep);transform:translateY(-2px)}
+.btn.alt{background:transparent;color:var(--deep);box-shadow:inset 0 0 0 2px var(--teal)}
+.btn.alt:hover{background:var(--mint)}
+.btn.coral{background:var(--coral)}
+/* hero */
+.hero{padding:70px 0 0;background:radial-gradient(900px 400px at 85% 0,var(--mint),transparent 70%)}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+.pill{display:inline-block;background:var(--mint);color:var(--deep);padding:6px 14px;border-radius:99px;font-weight:700;font-size:.85rem;margin-bottom:1.1rem}
+.hero h1{font-size:clamp(2.6rem,6vw,4.4rem);margin-bottom:1.1rem;letter-spacing:-.02em}
+.hero h1 em{font-style:italic;color:var(--teal)}
+.hero p{color:var(--mute);font-size:1.12rem;max-width:46ch;margin-bottom:1.8rem}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.monitor{background:var(--deep);color:#fff;border-radius:26px;padding:24px;box-shadow:0 30px 60px -25px rgba(10,79,74,.6)}
+.monitor header{all:unset;display:flex;justify-content:space-between;font-size:.85rem;opacity:.85}
+.live{display:flex;align-items:center;gap:7px}
+.live i{width:9px;height:9px;border-radius:50%;background:#5CF2B4;animation:blink 1.6s infinite}
+@keyframes blink{50%{opacity:.25}}
+.monitor svg{width:100%;margin:22px 0 14px;display:block}
+.ecg{fill:none;stroke:#5CF2B4;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:900;stroke-dashoffset:900;animation:draw 3.2s ease-out forwards,loop 3.2s 3.2s linear infinite}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes loop{0%{stroke-dashoffset:0}100%{stroke-dashoffset:-900}}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center}
+.stats div{background:rgba(255,255,255,.08);border-radius:12px;padding:10px 4px}
+.stats b{display:block;font:700 1.3rem Fraunces,serif}
+.stats span{font-size:.75rem;opacity:.8}
+/* about */
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px}
+.ic{width:46px;height:46px;border-radius:14px;background:var(--mint);display:grid;place-items:center;font-size:1.4rem;margin-bottom:14px}
+.card h3{font-size:1.25rem;margin-bottom:6px}
+.card p{color:var(--mute);font-size:.96rem}
+/* checker */
+.band{background:var(--deep);color:#fff}
+.band .lead{color:#B9D8D3}
+.checker{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:start}
+.panel{background:var(--card);color:var(--ink);border-radius:24px;padding:28px}
+.panel h3{font-size:1.25rem;margin-bottom:4px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 22px}
+.chip{cursor:pointer;border:2px solid var(--line);background:var(--card);border-radius:99px;padding:9px 16px;font:500 .95rem 'DM Sans',sans-serif;transition:all .15s;color:var(--ink)}
+.chip:hover{border-color:var(--teal)}
+.chip[aria-pressed=true]{background:var(--teal);border-color:var(--teal);color:#fff}
+.result{min-height:240px}
+.res-item{border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:12px;animation:pop .35s}
+@keyframes pop{from{opacity:0;transform:scale(.96)}}
+.bar{height:8px;border-radius:9px;background:var(--mint);margin:8px 0;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--coral));border-radius:9px}
+.note{background:var(--notebg);border-left:4px solid var(--coral);padding:12px 14px;border-radius:10px;font-size:.88rem;margin-top:16px;color:var(--noteink)}
+/* forms */
+.form{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:30px;display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:760px}
+.form .full{grid-column:1/-1}
+label{display:block;font-weight:700;font-size:.88rem;margin-bottom:5px}
+input,select,textarea{width:100%;font:inherit;padding:12px 14px;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--teal);background:var(--card)}
+.ok{display:none;grid-column:1/-1;background:var(--mint);color:var(--deep);padding:14px 16px;border-radius:12px;font-weight:500}
+/* staff */
+.doc{text-align:center}
+.av{width:84px;height:84px;border-radius:50%;margin:0 auto 14px;display:grid;place-items:center;font:700 1.7rem Fraunces,serif;color:#fff;background:linear-gradient(135deg,var(--teal),var(--deep))}
+.doc:nth-child(2) .av{background:linear-gradient(135deg,var(--coral),#c9442f)}
+.doc:nth-child(4) .av{background:linear-gradient(135deg,#7fb8ad,var(--teal))}
+.doc small{display:block;color:var(--teal);font-weight:700;margin-bottom:2px}
+.doc .btn{margin-top:14px;padding:9px 20px;font-size:.9rem}
+dialog{background:var(--card);color:var(--ink);border:0;border-radius:24px;padding:32px;max-width:420px;width:90%;box-shadow:0 30px 80px rgba(0,0,0,.3)}
+dialog::backdrop{background:rgba(13,43,44,.55);backdrop-filter:blur(3px)}
+/* pros cons */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two .card ul{padding-left:0;list-style:none;margin-top:12px}
+.two li{padding:9px 0 9px 30px;border-top:1px solid var(--line);position:relative}
+.pro li:before{content:"✓";position:absolute;left:0;color:var(--teal);font-weight:700}
+.con li:before{content:"!";position:absolute;left:5px;color:var(--coral);font-weight:700}
+.pro{background:var(--pro)}.con{background:var(--con)}
+/* extras */
+.alert{background:var(--coral);color:#fff;text-align:center;font-size:.88rem;padding:8px 14px}
+.tg{background:var(--mint);border:0;width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:1.1rem}
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.tools .row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.gauge{position:relative;height:12px;border-radius:9px;margin:26px 0 8px;background:linear-gradient(90deg,#5CB8E6 0 18%,#4CC38A 18% 50%,#F5B84C 50% 75%,#FF6F59 75%)}
+.gauge i{position:absolute;top:-6px;width:6px;height:24px;border-radius:4px;background:var(--ink);left:0;transition:left .5s}
+.big{font:700 2.4rem Fraunces,serif;color:var(--teal);line-height:1}
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-bottom:10px;max-width:760px}
+summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::after{content:"+";color:var(--coral);font-size:1.3rem;line-height:1}
+details[open] summary::after{content:"–"}
+details p{color:var(--mute);margin-top:10px}
+.acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.acts button{border:0;border-radius:99px;background:var(--coral);color:#fff;padding:7px 12px;font:700 .8rem 'DM Sans',sans-serif;cursor:pointer}
+.acts button:hover{filter:brightness(.92)}
+/* footer */
+footer{background:var(--ink);color:#B9D0CD;padding:56px 0 30px}
+footer .wrap{display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px}
+footer h3{color:#fff;font-size:1.05rem;margin-bottom:10px}
+footer a{display:block;text-decoration:none;padding:3px 0}
+footer a:hover{color:#fff}
+.copy{text-align:center;margin-top:36px;font-size:.85rem;opacity:.7}
+/* theme */
+const th=$('#theme');
+function setT(d){document.documentElement.dataset.theme=d?'dark':'';th.textContent=d?'☀️':'🌙';try{localStorage.setItem('medai-dark',d?1:0)}catch(e){}}
+let sv=null;try{sv=localStorage.getItem('medai-dark')}catch(e){}
+setT(sv===null?matchMedia('(prefers-color-scheme:dark)').matches:sv==='1');
+th.onclick=()=>setT(document.documentElement.dataset.theme!=='dark');
+/* BMI + water */
+$('#bcalc').onclick=()=>{const h=+$('#bh').value/100,w=+$('#bw').value;if(!h||!w){$('#bout').textContent='Please enter a valid height and weight.';return}
+const b=w/(h*h),c=b<18.5?'Underweight':b<25?'Healthy range':b<30?'Overweight':'Obesity range';
+const pos=Math.min(100,Math.max(0,(b-12)/(40-12)*100));
+$('#bout').innerHTML=`<span class="big">${b.toFixed(1)}</span> <b>${c}</b><div class="gauge"><i style="left:calc(${pos}% - 3px)"></i></div><small style="color:var(--mute)">BMI is a general screen and doesn’t reflect muscle, age or health history. Ask a doctor for personal advice.</small>`};
+$('#wcalc').onclick=()=>{const w=+$('#ww').value;if(!w){$('#wout').textContent='Please enter a valid weight.';return}
+const l=w*.035+ +$('#wa').value;$('#wout').innerHTML=`<span class="big">${l.toFixed(1)} L</span> <b>per day</b><p style="color:var(--mute);margin-top:6px">That’s about ${Math.round(l*1000/250)} glasses of 250 ml. Needs rise in hot weather or when you’re unwell.</p>`};
+/* chatbot */
+#fab{position:fixed;right:22px;bottom:22px;z-index:40;width:64px;height:64px;border-radius:50%;border:0;background:var(--coral);color:#fff;font-size:1.7rem;cursor:pointer;box-shadow:0 12px 30px -6px rgba(255,111,89,.7);transition:transform .2s}
+#fab:hover{transform:scale(1.08)}
+#chat{position:fixed;right:22px;bottom:100px;z-index:40;width:min(380px,calc(100vw - 32px));height:min(540px,calc(100vh - 130px));background:var(--card);border-radius:24px;box-shadow:0 30px 80px -10px rgba(13,43,44,.45);display:none;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
+#chat.open{display:flex;animation:pop .3s}
+.ch{background:var(--deep);color:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px}
+.ch .av2{width:40px;height:40px;border-radius:50%;background:var(--coral);display:grid;place-items:center;font-size:1.2rem}
+.ch small{display:block;opacity:.75;font-size:.78rem}
+.ch button{margin-left:auto;background:none;border:0;color:#fff;font-size:1.5rem;cursor:pointer}
+#msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+.m{max-width:85%;padding:10px 14px;border-radius:16px;font-size:.93rem;animation:pop .25s;white-space:pre-line}
+.m.bot{background:var(--card);border:1px solid var(--line);border-bottom-left-radius:4px;align-self:flex-start}
+.m.me{background:var(--teal);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+.qr{display:flex;flex-wrap:wrap;gap:6px;padding:8px 12px 0;background:var(--bg)}
+.qr button{border:1px solid var(--teal);background:var(--card);color:var(--deep);border-radius:99px;padding:5px 12px;font:500 .8rem 'DM Sans',sans-serif;cursor:pointer}
+.qr button:hover{background:var(--mint)}
+#cf{display:flex;gap:8px;padding:12px;background:var(--bg)}
+#cf input{border-radius:99px}
+#cf button{border:0;border-radius:99px;background:var(--teal);color:#fff;padding:0 18px;font-weight:700;cursor:pointer}
+@media(max-width:820px){
+.tools{grid-template-columns:1fr}
+.hero .wrap,.checker,.two,footer .wrap{grid-template-columns:1fr}
+.menu{display:block}
+.links{display:none;position:absolute;top:66px;left:0;right:0;flex-direction:column;background:var(--bg);padding:12px 22px 18px;border-bottom:1px solid var(--line)}
+.links.show{display:flex}
+.form{grid-template-columns:1fr}
+section{padding:60px 0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}.ecg{stroke-dashoffset:0}}
+</style>
 </head>
-
 <body>
-
-<!-- =====================================================
-     NAVIGATION BAR
-===================================================== -->
-
-<header>
-
-    <nav class="navbar">
-
-        <a href="#home" class="logo">
-            <span>✚</span> MedAI
-        </a>
-
-        <button class="menu-btn" id="menuBtn">
-            ☰
-        </button>
-
-        <ul class="nav-links" id="navLinks">
-
-            <li>
-                <a href="#home">Home</a>
-            </li>
-
-            <li>
-                <a href="#about">About</a>
-            </li>
-
-            <li>
-                <a href="#symptoms">AI Health Check</a>
-            </li>
-
-            <li>
-                <a href="#appointment">Appointment</a>
-            </li>
-
-            <li>
-                <a href="#staff">Our Staff</a>
-            </li>
-
-            <li>
-                <a href="#register">Register</a>
-            </li>
-
-        </ul>
-
-    </nav>
-
-</header>
-
-
-<!-- =====================================================
-     HOME
-===================================================== -->
-
-<section id="home" class="hero">
-
-    <div class="hero-content">
-
-        <div class="badge">
-            ✨ AI-Powered Local Healthcare
-        </div>
-
-        <h1>
-            Smarter Healthcare.
-            <span>Better Care.</span>
-        </h1>
-
-        <p>
-            MedAI uses AI-inspired healthcare technology to
-            make local healthcare services faster, smarter
-            and easier to access.
-        </p>
-
-        <div class="hero-buttons">
-
-            <a href="#symptoms" class="btn primary">
-                Check Symptoms →
-            </a>
-
-            <a href="#appointment" class="btn secondary">
-                Book Appointment
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <div class="hero-card">
-
-        <div class="pulse-icon">
-            ❤
-        </div>
-
-        <h2>
-            AI Healthcare Assistant
-        </h2>
-
-        <p>
-            Analyze selected symptoms and receive an
-            educational health suggestion.
-        </p>
-
-        <div class="online">
-            ● System Online
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     ABOUT
-===================================================== -->
-
-<section id="about" class="section">
-
-    <div class="section-title">
-
-        <span>ABOUT THE PROJECT</span>
-
-        <h2>
-            AI for
-            <strong>Local Healthcare</strong>
-        </h2>
-
-        <p>
-            Artificial Intelligence can support healthcare
-            professionals by analyzing information,
-            improving efficiency and helping patients
-            access healthcare services.
-        </p>
-
-    </div>
-
-
-    <div class="cards">
-
-        <div class="info-card">
-
-            <div class="card-icon">
-                🔍
-            </div>
-
-            <h3>
-                Early Detection
-            </h3>
-
-            <p>
-                AI-based systems can analyze symptoms and
-                health information to identify possible
-                health concerns.
-            </p>
-
-        </div>
-
-
-        <div class="info-card">
-
-            <div class="card-icon">
-                ⚡
-            </div>
-
-            <h3>
-                Faster Healthcare
-            </h3>
-
-            <p>
-                AI can help reduce repetitive tasks and
-                improve the efficiency of healthcare services.
-            </p>
-
-        </div>
-
-
-        <div class="info-card">
-
-            <div class="card-icon">
-                📊
-            </div>
-
-            <h3>
-                Better Decisions
-            </h3>
-
-            <p>
-                AI can analyze information and provide
-                useful insights to healthcare professionals.
-            </p>
-
-        </div>
-
-
-        <div class="info-card">
-
-            <div class="card-icon">
-                🌐
-            </div>
-
-            <h3>
-                Accessible Care
-            </h3>
-
-            <p>
-                Digital healthcare tools can improve access
-                to healthcare information and services.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     AI SYMPTOM CHECKER
-===================================================== -->
-
-<section id="symptoms" class="checker-section">
-
-    <div class="section">
-
-        <div class="section-title">
-
-            <span>AI HEALTH CHECK</span>
-
-            <h2>
-                Analyze Your
-                <strong>Symptoms</strong>
-            </h2>
-
-            <p>
-                Select the symptoms you are experiencing.
-                The system will compare the selected symptoms
-                with conditions stored in its demonstration
-                knowledge base.
-            </p>
-
-        </div>
-
-
-        <div class="checker">
-
-
-            <!-- LEFT SIDE -->
-
-            <div class="symptom-box">
-
-                <h2>
-                    Select Symptoms
-                </h2>
-
-                <p class="small-text">
-                    Select all symptoms that apply.
-                </p>
-
-
-                <div class="symptoms-grid">
-
-                    <label class="symptom-option">
-                        <input type="checkbox" value="fever">
-                        <span>🌡️ Fever</span>
-                    </label>
-
-
-                    <label class="symptom-option">
-                        <input type="checkbox" value="cough">
-                        <span>😷 Cough</span>
-                    </label>
-
-
-                    <label class="symptom-option">
-                        <input type="checkbox" value="headache">
-                        <span>🤕 Headache</span>
-                    </label>
-
-
-                    <label class="symptom-option">
-                        <input type="checkbox" value="fatigue">
-                        <span>😴 Fatigue</span>
-                    </label>
-
-
-                    <label class="symptom-option">
-                        <input type="checkbox" value="sorethroat">
-                        <span>🗣️ Sore Throat</span>
-                    </label>
-
-
-                    <label class="symptom-option">
-                        <input type="checkbox" value="cold">
-                        <span>🤧 Runny Nose</span>
-                    </label>
-
-
-                    <label class="symptom-option">
-                        <input type="checkbox" value="stomach">
-                        <span>🤢 Stomach Pain</span>
-                    </label>
-
-
-                    <label class="symptom-option">
-                        <input type="checkbox" value="nausea">
-                        <span>🤮 Nausea</span>
-                    </label>
-
-
-                    <label class="symptom-option">
-                        <input type="checkbox" value="bodypain">
-                        <span>💢 Body Pain</span>
-                    </label>
-
-
-                    <label class="symptom-option">
-                        <input type="checkbox" value="dizziness">
-                        <span>😵 Dizziness</span>
-                    </label>
-
-
-                    <label class="symptom-option">
-                        <input type="checkbox" value="rash">
-                        <span>🔴 Skin Rash</span>
-                    </label>
-
-
-                    <label class="symptom-option">
-                        <input type="checkbox" value="itching">
-                        <span>🖐️ Itching</span>
-                    </label>
-
-                </div>
-
-
-                <button
-                    type="button"
-                    id="analyzeBtn"
-                    class="btn primary analyze-btn">
-
-                    🔍 Analyze Symptoms
-
-                </button>
-
-
-                <button
-                    type="button"
-                    id="clearBtn"
-                    class="clear-btn">
-
-                    Clear Selection
-
-                </button>
-
-            </div>
-
-
-            <!-- RIGHT SIDE -->
-
-            <div class="result-box" id="resultBox">
-
-                <div class="robot">
-                    🤖
-                </div>
-
-                <h2>
-                    AI Health Assistant
-                </h2>
-
-                <p>
-                    Select your symptoms and click
-                    <strong>Analyze Symptoms</strong>
-                    to receive a result.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="warning">
-
-            ⚠️ <strong>Important:</strong>
-            This is an educational demonstration and does
-            not provide a medical diagnosis. Symptoms can
-            have multiple causes. For real medical concerns,
-            consult a qualified healthcare professional.
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     APPOINTMENT
-===================================================== -->
-
-<section id="appointment" class="section">
-
-    <div class="section-title">
-
-        <span>HEALTHCARE SERVICES</span>
-
-        <h2>
-            Book an
-            <strong>Appointment</strong>
-        </h2>
-
-        <p>
-            Schedule a consultation with a healthcare professional.
-        </p>
-
-    </div>
-
-
-    <div class="form-container">
-
-        <form id="appointmentForm">
-
-            <div class="form-row">
-
-                <div class="input-group">
-
-                    <label>
-                        Patient Name
-                    </label>
-
-                    <input
-                        type="text"
-                        id="patientName"
-                        placeholder="Enter your name"
-                        required>
-
-                </div>
-
-
-                <div class="input-group">
-
-                    <label>
-                        Phone Number
-                    </label>
-
-                    <input
-                        type="tel"
-                        placeholder="Enter phone number"
-                        required>
-
-                </div>
-
-            </div>
-
-
-            <div class="form-row">
-
-                <div class="input-group">
-
-                    <label>
-                        Appointment Date
-                    </label>
-
-                    <input
-                        type="date"
-                        required>
-
-                </div>
-
-
-                <div class="input-group">
-
-                    <label>
-                        Department
-                    </label>
-
-                    <select required>
-
-                        <option value="">
-                            Select Department
-                        </option>
-
-                        <option>
-                            General Medicine
-                        </option>
-
-                        <option>
-                            Cardiology
-                        </option>
-
-                        <option>
-                            Pediatrics
-                        </option>
-
-                        <option>
-                            Dermatology
-                        </option>
-
-                        <option>
-                            Orthopedics
-                        </option>
-
-                    </select>
-
-                </div>
-
-            </div>
-
-
-            <div class="input-group">
-
-                <label>
-                    Reason for Appointment
-                </label>
-
-                <textarea
-                    rows="4"
-                    placeholder="Describe your concern">
-                </textarea>
-
-            </div>
-
-
-            <button
-                type="submit"
-                class="btn primary full">
-
-                📅 Confirm Appointment
-
-            </button>
-
-        </form>
-
-
-        <div id="appointmentMessage"></div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     STAFF DATABASE
-===================================================== -->
-
-<section id="staff" class="staff-section">
-
-    <div class="section">
-
-        <div class="section-title">
-
-            <span>HEALTHCARE TEAM</span>
-
-            <h2>
-                Hospital
-                <strong>Staff Database</strong>
-            </h2>
-
-            <p>
-                View information about healthcare professionals
-                available at the hospital.
-            </p>
-
-        </div>
-
-
-        <div class="staff-grid">
-
-
-            <div class="staff-card">
-
-                <div class="doctor">
-                    👨‍⚕️
-                </div>
-
-                <h3>
-                    Dr. Rahul Sharma
-                </h3>
-
-                <p class="speciality">
-                    General Physician
-                </p>
-
-                <p>
-                    12+ years experience
-                </p>
-
-                <button
-                    class="profile-btn"
-                    onclick="showStaff(
-                    'Dr. Rahul Sharma',
-                    'General Physician',
-                    '12+ years experience',
-                    'Monday - Friday')">
-
-                    View Profile
-
-                </button>
-
-            </div>
-
-
-            <div class="staff-card">
-
-                <div class="doctor">
-                    👩‍⚕️
-                </div>
-
-                <h3>
-                    Dr. Priya Mehta
-                </h3>
-
-                <p class="speciality">
-                    Cardiologist
-                </p>
-
-                <p>
-                    10+ years experience
-                </p>
-
-                <button
-                    class="profile-btn"
-                    onclick="showStaff(
-                    'Dr. Priya Mehta',
-                    'Cardiologist',
-                    '10+ years experience',
-                    'Tuesday - Saturday')">
-
-                    View Profile
-
-                </button>
-
-            </div>
-
-
-            <div class="staff-card">
-
-                <div class="doctor">
-                    👨‍⚕️
-                </div>
-
-                <h3>
-                    Dr. Arjun Patel
-                </h3>
-
-                <p class="speciality">
-                    Pediatrician
-                </p>
-
-                <p>
-                    8+ years experience
-                </p>
-
-                <button
-                    class="profile-btn"
-                    onclick="showStaff(
-                    'Dr. Arjun Patel',
-                    'Pediatrician',
-                    '8+ years experience',
-                    'Monday - Saturday')">
-
-                    View Profile
-
-                </button>
-
-            </div>
-
-
-            <div class="staff-card">
-
-                <div class="doctor">
-                    👩‍⚕️
-                </div>
-
-                <h3>
-                    Dr. Ananya Rao
-                </h3>
-
-                <p class="speciality">
-                    Dermatologist
-                </p>
-
-                <p>
-                    7+ years experience
-                </p>
-
-                <button
-                    class="profile-btn"
-                    onclick="showStaff(
-                    'Dr. Ananya Rao',
-                    'Dermatologist',
-                    '7+ years experience',
-                    'Monday - Thursday')">
-
-                    View Profile
-
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     BENEFITS & CHALLENGES
-===================================================== -->
-
-<section class="section">
-
-    <div class="section-title">
-
-        <span>PROJECT ANALYSIS</span>
-
-        <h2>
-            Benefits &
-            <strong>Challenges</strong>
-        </h2>
-
-    </div>
-
-
-    <div class="comparison">
-
-        <div class="benefits">
-
-            <h2>
-                ✓ Benefits
-            </h2>
-
-            <ul>
-
-                <li>
-                    Early identification of possible health concerns
-                </li>
-
-                <li>
-                    Faster analysis of information
-                </li>
-
-                <li>
-                    Improved patient monitoring
-                </li>
-
-                <li>
-                    Reduced administrative workload
-                </li>
-
-                <li>
-                    Better access to healthcare information
-                </li>
-
-            </ul>
-
-        </div>
-
-
-        <div class="challenges">
-
-            <h2>
-                ⚠ Challenges
-            </h2>
-
-            <ul>
-
-                <li>
-                    Patient data privacy concerns
-                </li>
-
-                <li>
-                    High implementation cost
-                </li>
-
-                <li>
-                    Need for trained professionals
-                </li>
-
-                <li>
-                    Technology limitations
-                </li>
-
-                <li>
-                    Lack of trust or acceptance
-                </li>
-
-            </ul>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     REGISTRATION
-===================================================== -->
-
-<section id="register" class="register-section">
-
-    <div class="section">
-
-        <div class="section-title">
-
-            <span>JOIN MEDAI</span>
-
-            <h2>
-                Patient
-                <strong>Registration</strong>
-            </h2>
-
-            <p>
-                Create a patient profile to access healthcare services.
-            </p>
-
-        </div>
-
-
-        <div class="form-container">
-
-            <form id="registrationForm">
-
-                <div class="form-row">
-
-                    <div class="input-group">
-
-                        <label>
-                            Full Name
-                        </label>
-
-                        <input
-                            type="text"
-                            placeholder="Enter full name"
-                            required>
-
-                    </div>
-
-
-                    <div class="input-group">
-
-                        <label>
-                            Email
-                        </label>
-
-                        <input
-                            type="email"
-                            placeholder="Enter email"
-                            required>
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-row">
-
-                    <div class="input-group">
-
-                        <label>
-                            Date of Birth
-                        </label>
-
-                        <input
-                            type="date"
-                            required>
-
-                    </div>
-
-
-                    <div class="input-group">
-
-                        <label>
-                            Gender
-                        </label>
-
-                        <select required>
-
-                            <option value="">
-                                Select Gender
-                            </option>
-
-                            <option>
-                                Male
-                            </option>
-
-                            <option>
-                                Female
-                            </option>
-
-                            <option>
-                                Other
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                </div>
-
-
-                <div class="input-group">
-
-                    <label>
-                        Password
-                    </label>
-
-                    <input
-                        type="password"
-                        placeholder="Create password"
-                        required>
-
-                </div>
-
-
-                <button
-                    type="submit"
-                    class="btn primary full">
-
-                    Create Patient Account
-
-                </button>
-
-            </form>
-
-
-            <div id="registrationMessage"></div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
-<footer>
-
-    <div class="footer-content">
-
-        <div>
-
-            <a href="#home" class="footer-logo">
-                ✚ MedAI
-            </a>
-
-            <p>
-                AI-inspired solutions for better local healthcare.
-            </p>
-
-        </div>
-
-
-        <div>
-
-            <h3>
-                Quick Links
-            </h3>
-
-            <a href="#home">
-                Home
-            </a>
-
-            <a href="#about">
-                About
-            </a>
-
-            <a href="#symptoms">
-                AI Health Check
-            </a>
-
-            <a href="#appointment">
-                Appointment
-            </a>
-
-        </div>
-
-
-        <div>
-
-            <h3>
-                Contact
-            </h3>
-
-            <p>
-                📍 Local Healthcare Centre
-            </p>
-
-            <p>
-                📞 +91 98765 43210
-            </p>
-
-            <p>
-                ✉ info@medai.com
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="copyright">
-
-        © 2026 MedAI | AI in Local Healthcare
-
-    </div>
-
-</footer>
-
-
-<!-- =====================================================
-     STAFF MODAL
-===================================================== -->
-
-<div class="modal" id="staffModal">
-
-    <div class="modal-content">
-
-        <button
-            class="close"
-            onclick="closeModal()">
-
-            ×
-
-        </button>
-
-        <div id="staffDetails"></div>
-
-    </div>
-
+<div class="alert">🚑 Emergency? Call <b>112</b> · Ambulance <b>108</b> · MedAI helpline <b>+91 98765 43210</b></div>
+<header><div class="wrap"><nav>
+<a class="logo" href="#home"><b>✚</b> MedAI</a>
+<button class="menu" id="menu" aria-label="Toggle menu">☰</button>
+<ul class="links" id="links">
+<li><a href="#about">About</a></li><li><a href="#symptoms">AI Health Check</a></li><li><a href="#appointment">Appointment</a></li><li><a href="#staff">Our Staff</a></li><li><a href="#tools">Health Tools</a></li><li><a href="#faq">FAQ</a></li><li><a href="#register">Register</a></li>
+</ul><button class="tg" id="theme" aria-label="Toggle dark mode">🌙</button></nav></div></header>
+
+<section class="hero" id="home"><div class="wrap">
+<div>
+<span class="pill">✨ AI-powered local healthcare</span>
+<h1>Smarter healthcare. <em>Better care.</em></h1>
+<p>MedAI uses AI-inspired technology to make local healthcare faster, smarter and easier to reach. Check symptoms, book a doctor and get answers in minutes.</p>
+<div class="cta"><a class="btn" href="#symptoms">Check symptoms</a><a class="btn alt" href="#appointment">Book appointment</a></div>
+</div>
+<div class="monitor" aria-hidden="true">
+<header><span>AI Healthcare Assistant</span><span class="live"><i></i>System online</span></header>
+<svg viewBox="0 0 400 120"><path class="ecg" d="M0 70 H80 L100 70 L115 25 L135 108 L152 45 L165 70 H240 L258 70 L272 30 L292 104 L308 50 L320 70 H400"/></svg>
+<div class="stats"><div><b>24/7</b><span>AI guidance</span></div><div><b>12</b><span>symptoms</span></div><div><b>4</b><span>specialists</span></div></div>
+</div></div></section>
+
+<section id="about"><div class="wrap">
+<h2>AI for local healthcare</h2>
+<p class="lead">Artificial intelligence can support healthcare professionals by analysing information, improving efficiency and helping patients reach the care they need.</p>
+<div class="grid4">
+<div class="card"><div class="ic">🔍</div><h3>Early detection</h3><p>Symptom analysis can point to possible health concerns sooner.</p></div>
+<div class="card"><div class="ic">⚡</div><h3>Faster healthcare</h3><p>Automating repetitive tasks frees staff to focus on patients.</p></div>
+<div class="card"><div class="ic">📊</div><h3>Better decisions</h3><p>Data-backed insights help professionals make confident choices.</p></div>
+<div class="card"><div class="ic">🌐</div><h3>Accessible care</h3><p>Digital tools bring health information to more people.</p></div>
+</div></div></section>
+
+<section class="band" id="symptoms"><div class="wrap">
+<h2>Analyse your symptoms</h2>
+<p class="lead">Tap everything you're feeling. We'll compare it with conditions in our demonstration knowledge base.</p>
+<div class="checker">
+<div class="panel">
+<h3>Select symptoms</h3><p style="color:var(--mute);font-size:.92rem">Choose all that apply.</p>
+<div class="chips" id="chips"></div>
+<div class="cta"><button class="btn" id="analyze">Analyse symptoms</button><button class="btn alt" id="clear">Clear</button></div>
+</div>
+<div class="panel result" aria-live="polite">
+<h3>🤖 AI health assistant</h3>
+<div id="out"><p style="color:var(--mute);margin-top:10px">Select your symptoms and choose <b>Analyse symptoms</b> to see a result.</p></div>
+<p class="note"><b>Important:</b> This is an educational demo, not a medical diagnosis. Symptoms have many causes. For real concerns, see a qualified healthcare professional.</p>
+</div></div></div></section>
+
+<section id="appointment"><div class="wrap">
+<h2>Book an appointment</h2>
+<p class="lead">Schedule a consultation with a healthcare professional.</p>
+<form class="form" id="apptForm">
+<div><label for="an">Patient name</label><input id="an" required></div>
+<div><label for="ap">Phone number</label><input id="ap" type="tel" required></div>
+<div><label for="ad">Appointment date</label><input id="ad" type="date" required></div>
+<div><label for="adep">Department</label><select id="adep" required><option value="">Select department</option><option>General Medicine</option><option>Cardiology</option><option>Pediatrics</option><option>Dermatology</option><option>Orthopedics</option></select></div>
+<div class="full"><label for="ar">Reason for appointment</label><textarea id="ar" rows="3"></textarea></div>
+<div class="full"><button class="btn" type="submit">Confirm appointment</button></div>
+<div class="ok" id="apptOk"></div>
+</form></div></section>
+
+<section id="staff" style="background:var(--soft)"><div class="wrap">
+<h2>Meet our healthcare team</h2>
+<p class="lead">Experienced professionals available at the hospital.</p>
+<div class="grid4" id="docs"></div>
+</div></section>
+
+<section id="tools"><div class="wrap">
+<h2>Quick health tools</h2>
+<p class="lead">Two handy calculators for everyday wellbeing. They give general guidance only.</p>
+<div class="tools">
+<div class="card"><h3>BMI calculator</h3>
+<div class="row"><div><label for="bh">Height (cm)</label><input id="bh" type="number" min="50" max="250" value="165"></div><div><label for="bw">Weight (kg)</label><input id="bw" type="number" min="10" max="300" value="62"></div></div>
+<button class="btn" id="bcalc" type="button">Calculate BMI</button>
+<div id="bout" aria-live="polite" style="margin-top:18px"></div></div>
+<div class="card"><h3>Daily water goal</h3>
+<p>A simple estimate based on your body weight (about 35 ml per kg).</p>
+<div class="row"><div><label for="ww">Weight (kg)</label><input id="ww" type="number" min="10" max="300" value="62"></div><div><label for="wa">Activity</label><select id="wa"><option value="0">Light</option><option value="0.5">Moderate (+0.5 L)</option><option value="1">High (+1 L)</option></select></div></div>
+<button class="btn coral" id="wcalc" type="button">Find my goal</button>
+<div id="wout" aria-live="polite" style="margin-top:18px"></div></div>
+ <div class="card" style="grid-column:1/-1"><h3>Ask MedAI</h3>
+<p>Have a health question or a personal doubt? Pick a topic or open the chat. Answers are pre-written, general, and stay in your browser.</p>
+<div class="chips" id="topics"></div><button class="btn" id="openchat" type="button">Open chat assistant</button></div>
+</div></div></section>
+
+<section id="faq" style="padding-top:0"><div class="wrap">
+<h2>Frequently asked questions</h2>
+<p class="lead">Quick answers to common doubts. Still stuck? Ask the chat assistant.</p>
+<details><summary>Is the AI Health Check a real diagnosis?</summary><p>No. It compares your symptoms with a small demonstration database for learning purposes. Always consult a qualified doctor for medical concerns.</p></details>
+<details><summary>How do I book an appointment?</summary><p>Open the Appointment section, enter your details, choose a department and date, then confirm.</p></details>
+<details><summary>Is my personal information safe?</summary><p>Privacy is a core challenge in healthcare AI. In this demo, form details stay in your browser and are not sent anywhere.</p></details>
+<details><summary>What should I do in an emergency?</summary><p>Call 112 or ambulance service 108 straight away. Do not wait for an online result.</p></details>
+<details><summary>Which departments are available?</summary><p>General Medicine, Cardiology, Pediatrics, Dermatology and Orthopedics.</p></details>
+</div></section>
+
+<section><div class="wrap">
+<h2>Benefits and challenges</h2>
+<p class="lead">AI in healthcare brings real promise alongside real responsibilities.</p>
+<div class="two">
+<div class="card pro"><h3>Benefits</h3><ul><li>Early identification of possible health concerns</li><li>Faster analysis of information</li><li>Improved patient monitoring</li><li>Reduced administrative workload</li><li>Better access to health information</li></ul></div>
+<div class="card con"><h3>Challenges</h3><ul><li>Patient data privacy concerns</li><li>High implementation cost</li><li>Need for trained professionals</li><li>Technology limitations</li><li>Lack of trust or acceptance</li></ul></div>
+</div></div></section>
+
+<section id="register" style="padding-top:0"><div class="wrap">
+<h2>Create your patient profile</h2>
+<p class="lead">Register to access healthcare services.</p>
+<form class="form" id="regForm">
+<div><label for="rn">Full name</label><input id="rn" required></div>
+<div><label for="re">Email</label><input id="re" type="email" required></div>
+<div><label for="rd">Date of birth</label><input id="rd" type="date" required></div>
+<div><label for="rg">Gender</label><select id="rg" required><option value="">Select gender</option><option>Male</option><option>Female</option><option>Other</option></select></div>
+<div class="full"><label for="rp">Password</label><input id="rp" type="password" minlength="6" required></div>
+<div class="full"><button class="btn" type="submit">Create patient account</button></div>
+<div class="ok" id="regOk"></div>
+</form></div></section>
+
+<footer><div class="wrap">
+<div><a class="logo" style="color:#fff" href="#home"><b>✚</b> MedAI</a><p style="margin-top:8px">AI-inspired solutions for better local healthcare.</p></div>
+<div><h3>Quick links</h3><a href="#about">About</a><a href="#symptoms">AI Health Check</a><a href="#appointment">Appointment</a><a href="#staff">Our Staff</a></div>
+<div><h3>Contact</h3><p>📍 Local Healthcare Centre</p><p>📞 +91 98765 43210</p><p>✉ info@medai.com</p></div>
+</div><p class="copy">© 2026 MedAI | AI in Local Healthcare</p></footer>
+
+<dialog id="dlg"><h3 id="dn"></h3><p id="dr" style="color:var(--teal);font-weight:700"></p><p id="dx" style="margin:12px 0 20px"></p><button class="btn" onclick="dlg.close()">Close</button></dialog>
+
+<button id="fab" aria-label="Open MedAI chat">💬</button>
+<div id="chat" role="dialog" aria-label="MedAI chat assistant">
+<div class="ch"><div class="av2">🤖</div><div><b>MedAI Assistant</b><small>Health questions, doctors &amp; appointments</small></div><button id="x" aria-label="Close chat">×</button></div>
+<div id="msgs"></div>
+<div class="qr" id="qr"></div>
+<form id="cf"><input id="ci" placeholder="Type your question…" autocomplete="off" aria-label="Your question"><button>Send</button></form>
 </div>
 
+<script>
+const $=s=>document.querySelector(s);
+/* nav */
+$('#menu').onclick=()=>$('#links').classList.toggle('show');
+document.querySelectorAll('.links a').forEach(a=>a.onclick=()=>$('#links').classList.remove('show'));
 
-<script src="script.js"></script>
+/* symptom checker */
+const SYM=[['Fever','🌡️'],['Cough','😷'],['Headache','🤕'],['Fatigue','😴'],['Sore Throat','🗣️'],['Runny Nose','🤧'],['Stomach Pain','🤢'],['Nausea','🤮'],['Body Pain','💢'],['Dizziness','😵'],['Skin Rash','🔴'],['Itching','🖐️']];
+const DB=[
+['Common Cold',['Cough','Sore Throat','Runny Nose','Fatigue','Headache'],'Rest, fluids and warm drinks usually help. See a doctor if it lasts over a week.'],
+['Influenza (Flu)',['Fever','Body Pain','Fatigue','Cough','Headache','Sore Throat'],'Rest and hydrate. Seek care if you have trouble breathing or a very high fever.'],
+['Migraine',['Headache','Nausea','Dizziness','Fatigue'],'Rest in a quiet, dark room. Frequent migraines deserve a doctor’s review.'],
+['Gastroenteritis',['Stomach Pain','Nausea','Fever','Fatigue'],'Sip oral rehydration fluids. See a doctor if it lasts beyond two days.'],
+['Allergic Reaction',['Skin Rash','Itching','Runny Nose','Cough'],'Avoid known triggers. Get urgent help if you have swelling or breathing difficulty.'],
+['Dehydration',['Dizziness','Fatigue','Headache','Nausea'],'Drink fluids with electrolytes and rest. Seek care if symptoms persist.'],
+['Viral Fever',['Fever','Body Pain','Fatigue','Headache'],'Rest, fluids and monitoring your temperature. Consult a doctor if fever lasts over 3 days.']];
+const sel=new Set();
+SYM.forEach(([n,e])=>{const b=document.createElement('button');b.className='chip';b.type='button';b.setAttribute('aria-pressed','false');b.textContent=e+' '+n;
+b.onclick=()=>{sel.has(n)?sel.delete(n):sel.add(n);b.setAttribute('aria-pressed',sel.has(n))};$('#chips').append(b)});
+$('#clear').onclick=()=>{sel.clear();document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));$('#out').innerHTML='<p style="color:var(--mute);margin-top:10px">Selection cleared. Pick your symptoms to begin.</p>'};
+$('#analyze').onclick=()=>{
+if(!sel.size){$('#out').innerHTML='<p style="margin-top:10px">Please select at least one symptom first.</p>';return}
+const r=DB.map(([n,s,t])=>{const m=s.filter(x=>sel.has(x)).length;return{n,t,p:Math.round(m/Math.max(s.length,sel.size)*100)}}).filter(x=>x.p>0).sort((a,b)=>b.p-a.p).slice(0,3);
+$('#out').innerHTML=r.length?r.map(x=>`<div class="res-item"><b>${x.n}</b> <span style="float:right;color:var(--teal);font-weight:700">${x.p}% match</span><div class="bar"><i style="width:${x.p}%"></i></div><small>${x.t}</small></div>`).join(''):'<p style="margin-top:10px">No match found in the demo database. Please consult a doctor.</p>'};
 
+/* forms */
+$('#ad').min=new Date().toISOString().split('T')[0];
+$('#apptForm').onsubmit=e=>{e.preventDefault();const o=$('#apptOk');o.style.display='block';o.textContent=`✓ Thanks ${$('#an').value}! Your ${$('#adep').value} appointment on ${$('#ad').value} is confirmed (demo).`;e.target.reset()};
+$('#regForm').onsubmit=e=>{e.preventDefault();const o=$('#regOk');o.style.display='block';o.textContent=`✓ Welcome, ${$('#rn').value}! Your patient profile has been created (demo).`;e.target.reset()};
+
+/* staff */
+const DOCS=[['Dr. Rahul Sharma','General Physician','12+ years','Treats everyday illnesses and manages long-term conditions for patients of all ages.'],['Dr. Priya Mehta','Cardiologist','10+ years','Focuses on heart health, blood pressure management and preventive cardiology.'],['Dr. Arjun Patel','Pediatrician','8+ years','Cares for infants, children and teens, from vaccinations to growth checks.'],['Dr. Ananya Rao','Dermatologist','7+ years','Treats skin, hair and nail conditions including rashes, allergies and acne.']];
+const dlg=$('#dlg');
+DOCS.forEach(([n,r,y,d])=>{const c=document.createElement('div');c.className='card doc';
+c.innerHTML=`<div class="av">${n.split(' ')[1][0]}${n.split(' ')[2][0]}</div><h3>${n}</h3><small>${r}</small><p>${y} experience</p><button class="btn alt">View profile</button>`;
+c.querySelector('button').onclick=()=>{$('#dn').textContent=n;$('#dr').textContent=r+' · '+y+' experience';$('#dx').textContent=d;dlg.showModal()};$('#docs').append(c)});
+
+/* theme */
+const th=$('#theme');
+function setT(d){document.documentElement.dataset.theme=d?'dark':'';th.textContent=d?'☀️':'🌙';try{localStorage.setItem('medai-dark',d?1:0)}catch(e){}}
+let sv=null;try{sv=localStorage.getItem('medai-dark')}catch(e){}
+setT(sv===null?matchMedia('(prefers-color-scheme:dark)').matches:sv==='1');
+th.onclick=()=>setT(document.documentElement.dataset.theme!=='dark');
+/* BMI + water */
+$('#bcalc').onclick=()=>{const h=+$('#bh').value/100,w=+$('#bw').value;if(!h||!w){$('#bout').textContent='Please enter a valid height and weight.';return}
+const b=w/(h*h),c=b<18.5?'Underweight':b<25?'Healthy range':b<30?'Overweight':'Obesity range';
+const pos=Math.min(100,Math.max(0,(b-12)/(40-12)*100));
+$('#bout').innerHTML=`<span class="big">${b.toFixed(1)}</span> <b>${c}</b><div class="gauge"><i style="left:calc(${pos}% - 3px)"></i></div><small style="color:var(--mute)">BMI is a general screen and doesn’t reflect muscle, age or health history. Ask a doctor for personal advice.</small>`};
+$('#wcalc').onclick=()=>{const w=+$('#ww').value;if(!w){$('#wout').textContent='Please enter a valid weight.';return}
+const l=w*.035+ +$('#wa').value;$('#wout').innerHTML=`<span class="big">${l.toFixed(1)} L</span> <b>per day</b><p style="color:var(--mute);margin-top:6px">That’s about ${Math.round(l*1000/250)} glasses of 250 ml. Needs rise in hot weather or when you’re unwell.</p>`};
+/* chatbot */
+const D={gen:['General Medicine','Dr. Rahul Sharma'],car:['Cardiology','Dr. Priya Mehta'],ped:['Pediatrics','Dr. Arjun Patel'],der:['Dermatology','Dr. Ananya Rao'],ort:['Orthopedics',null]};
+const MH='\n\nIf things feel too heavy, you can call Tele-MANAS 14416 (free mental-health helpline in India, 24/7).';
+const KB=[
+[/suicid|kill myself|end my life|self.?harm|want to die|hurt myself/,'I’m really sorry you’re hurting. You deserve support right now. Please call 112 or Tele-MANAS 14416 (free, 24/7 in India), or reach someone you trust and stay with them. I’m only an automated assistant, so a real person can help you far better than I can.'],
+[/chest pain|can.?t breathe|difficulty breathing|trouble breathing|breathless|unconscious|severe bleeding|heavy bleeding|seizure|poison|overdose|choking|stroke|heart attack|paraly|slurred|emergency/,'⚠️ This may be an emergency. Please call 112 (or ambulance 108) or go to the nearest hospital now. Don’t wait for an online answer.'],
+[/\bhello|\bhi\b|\bhey\b|good (morning|evening|afternoon)/,'Hello! 👋 Ask me about symptoms, health worries, sleep, stress, diet, medicines, or which doctor to see. Personal questions are welcome too.'],
+[/who are you|are you (a )?(real|human|doctor|bot)|your name|how do you work/,'I’m the MedAI assistant, an automated helper with pre-written answers. I’m not a doctor and can’t diagnose, but I can share general information and point you to the right doctor.'],
+[/embarrass|ashamed|shy|awkward|afraid to ask|scared to ask|silly question|judg|personal doubt|private/,'That’s not a silly question. Doctors hear personal concerns every day, and being open helps them help you. Ask me in your own words, or tell the doctor directly during your consultation.',['gen']],
+[/child|kid|baby|infant|toddler|vaccin|immuniz|my son|my daughter/,'Children’s health changes quickly, so check any fever in babies and growth or vaccination questions with a pediatrician. Seek urgent care if a child is very drowsy, not feeding or breathing fast.',['ped']],
+[/stomach|abdom|belly|nausea|vomit|diarr|loose motion|acidity|\bgas\b|constipat|indigestion/,'Sip oral rehydration fluids, eat light foods and rest. See a doctor if it lasts over two days, you can’t keep fluids down, you see blood, or the pain is severe.',['gen']],
+[/blood pressure|\bbp\b|hypertens|palpitat|heart|cholesterol/,'Heart and blood-pressure concerns are best checked with a measurement. Less salt, regular activity and no smoking help. Seek urgent care for chest pain, fainting or sudden breathlessness.',['car']],
+[/diabet|sugar|glucose|hba1c/,'Blood sugar needs a test and a doctor’s plan. Balanced meals, less sugary food and regular activity help. Frequent thirst, urination or tiredness are good reasons to get tested.',['gen']],
+[/fever|temperature|dengue|malaria|viral/,'Rest, drink fluids and track your temperature. See a doctor if fever lasts over 3 days, is very high, or comes with a rash, severe body pain, vomiting or breathing trouble. These can point to infections like dengue, which need a test.',['gen']],
+[/cough|\bcold\b|sore throat|runny|sneez|\bflu\b|congestion/,'Rest, warm fluids and steam usually help. See a doctor if it lasts over a week, you have a high fever, or you struggle to breathe.',['gen']],
+[/asthma|wheez|breath/,'For wheezing or breathing trouble, avoid triggers like dust and smoke and keep any prescribed inhaler handy. Persistent or worsening symptoms need a doctor, and severe breathlessness is an emergency (112).',['gen']],
+[/headache|migraine|dizz|vertigo|faint/,'Rest in a quiet room and drink water. Sudden severe headaches, or ones with vision changes, weakness or confusion, need urgent care. See a doctor for frequent headaches.',['gen']],
+[/rash|itch|skin|acne|pimple|hair fall|hair loss|dandruff|eczema|allerg|fungal|ringworm/,'Avoid scratching and known triggers, and keep the area clean and dry. A dermatologist can help with persistent rashes, acne or hair fall. Swelling of the face or breathing trouble is an emergency.',['der']],
+[/joint|knee|back pain|neck pain|bone|fractur|sprain|arthritis|shoulder|muscle|spine|ortho/,'Rest, avoid heavy strain and use a cold or warm pack. See a doctor if there’s swelling, injury, numbness or pain that lasts over a few days. Our Orthopedics department handles this, and our General Physician can do a first check.',['ort','gen']],
+[/period|menstrua|pregnan|pcos|menopause|gyn/,'Cycle and pregnancy questions are completely normal to ask. We don’t have a gynecologist listed yet, so our General Physician can do a first consultation and guide you on next steps.',['gen']],
+[/sleep|insomnia|snor|tired all/,'Try a fixed sleep and wake time, no screens an hour before bed, less caffeine after noon, and a cool dark room. If poor sleep lasts over 2–3 weeks or affects your day, talk to a doctor.',['gen']],
+[/stress|anxi|panic|depress|\bsad\b|lonely|overwhelm|worr|scared|\bfear|low mood|mental|mood|burnout|\bcry/,'I’m sorry it feels hard. What you’re feeling is real, and many people go through it. Slow breathing, a short walk, sleep and talking to someone you trust can help. If it lasts or affects daily life, please speak to a doctor.'+MH,['gen']],
+[/diet|nutrition|weight loss|lose weight|gain weight|\beat|\bfood|protein|vitamin|calcium|iron|an(a)?emi/,'Aim for a balanced plate: vegetables, fruit, whole grains, protein and enough water, with less sugar, fried and packaged food. Tiredness or pale skin may need a blood test. Try the BMI and water tools above.',['gen']],
+[/exercise|workout|gym|yoga|walk|fitness/,'Most adults benefit from about 150 minutes of moderate activity a week, such as brisk walking, plus muscle-strengthening twice a week. Start gently, build up slowly, and check with a doctor if you have a heart or joint condition.',['gen']],
+[/smok|tobacco|vape|alcohol|addict/,'Quitting is one of the best things you can do for your health, and support makes it easier. Don’t be hard on yourself about slips. A doctor can suggest safe ways to cut down or quit.',['gen']],
+[/medicine|tablet|paracetamol|dolo|antibiotic|dose|dosage|painkiller|\bpill|syrup/,'I can’t give doses. Please follow your doctor’s prescription or the label, avoid self-medicating, finish antibiotics as prescribed, and tell the doctor about allergies and other medicines. A pharmacist can answer quick questions.',['gen']],
+[/thyroid|hormon/,'Thyroid and hormone concerns, like unexplained weight change, hair fall or fatigue, are diagnosed with a blood test. A doctor can order it and explain the results.',['gen']],
+[/burn|wound|first aid|bite|nosebleed|\bcut\b/,'First aid: for burns, cool under running water for 10–20 minutes. For cuts, press with a clean cloth and clean the wound. For nosebleeds, lean forward and pinch the nose. Get medical help for deep wounds, animal bites or severe burns.',['gen']],
+[/bmi|body mass|water|hydrat|calculator|tool/,'Try the Health Tools section above: a BMI calculator and a daily water-goal estimator. They’re general guides, so ask a doctor for personal advice.'],
+[/dark|theme|night mode/,'Tap the 🌙 button at the top right to switch between light and dark mode.'],
+[/faq/,'Common questions are answered in the FAQ section near the bottom, and you can ask me directly too.'],
+[/regist|sign ?up|account|profile|login/,'Go to the Register section and fill in your name, email, date of birth, gender and a password to create your patient profile.'],
+[/contact|phone|call|e-?mail|address|location|where|hours|open/,'📍 Local Healthcare Centre\n📞 +91 98765 43210\n✉ info@medai.com'],
+[/data|secure|confidential|remember|record|store|safe to (share|tell)/,'This chat is a simple pre-written assistant running in your browser and it doesn’t send your messages anywhere. Still, avoid sharing passwords or ID numbers here.'],
+[/benefit|advantage|challenge|risk/,'Benefits: earlier detection, faster analysis, better monitoring, less admin. Challenges: data privacy, cost, trained staff, tech limits and trust.'],
+[/what is medai|about|medai/,'MedAI shows how AI can make local healthcare faster, smarter and more accessible, with symptom checks, appointments and a staff directory.'],
+[/symptom|analy[sz]e|diagnos|ai health/,'Use the AI Health Check: tap your symptoms and press Analyse symptoms to see possible matches. It’s an educational demo, not a diagnosis.',['gen']],
+[/appointment|book|schedule|consult|visit|slot/,'Happy to help. Choose a department below and I’ll open the booking form with it selected. You then add your name, phone and date.',['gen','car','ped','der']],
+[/doctor|staff|physician|cardio|pediatric|dermat|team|specialist|recommend|suggest/,'Our team: Dr. Rahul Sharma (General Physician, 12+ yrs), Dr. Priya Mehta (Cardiologist, 10+ yrs), Dr. Arjun Patel (Pediatrician, 8+ yrs), Dr. Ananya Rao (Dermatologist, 7+ yrs). Tell me your concern and I’ll suggest who to see.',['gen','car','ped','der']],
+[/thank|thanks|bye|ok(ay)?$/,'You’re welcome! Take care and stay healthy 💚']];
+const FALL='I’m not sure I have an answer for that. I can help with symptoms, sleep, stress, diet, medicines, children’s health and more. If you’re unsure who to see, our General Physician is a good first step.';
+const msgs=$('#msgs'),ci=$('#ci');let noted=false;
+function add(t,c,k){const d=document.createElement('div');d.className='m '+c;d.textContent=t;
+if(k&&k.length){const a=document.createElement('div');a.className='acts';k.forEach(x=>{const b=document.createElement('button');b.type='button';b.textContent=D[x][1]?'Book with '+D[x][1]:'Book '+D[x][0];b.onclick=()=>book(x);a.append(b)});d.append(a)}
+msgs.append(d);msgs.scrollTop=msgs.scrollHeight}
+function book(x){toggle(false);$('#adep').value=D[x][0];$('#appointment').scrollIntoView({behavior:'smooth'});setTimeout(()=>$('#an').focus({preventScroll:true}),700)}
+function reply(q){const l=q.toLowerCase();const h=KB.find(([r])=>r.test(l));
+if(!h){add(FALL,'bot',['gen']);return}
+let t=h[1];const k=h[2]||[];
+if(k.length&&k.length<3)t+='\n\n👩‍⚕️ Suggested: '+k.map(x=>D[x][1]?D[x][1]+' ('+D[x][0]+')':D[x][0]+' department').join(' or ');
+if(k.length&&!noted){noted=true;t+='\n\nℹ️ General information only, not a diagnosis.'}
+add(t,'bot',k)}
+function ask(q){add(q,'me');const t=document.createElement('div');t.className='m bot';t.textContent='…';msgs.append(t);msgs.scrollTop=msgs.scrollHeight;
+setTimeout(()=>{t.remove();reply(q)},500)}
+['Which doctor should I see?','Book appointment','I feel stressed','I can’t sleep','Health tools','Contact'].forEach(q=>{const b=document.createElement('button');b.textContent=q;b.onclick=()=>ask(q);$('#qr').append(b)});
+let greeted=false;
+function toggle(open){$('#chat').classList.toggle('open',open);if(open&&!greeted){greeted=true;add('Hi, I’m the MedAI assistant 👋 Ask me about symptoms, health worries, sleep, stress, diet or medicines, or tell me your concern and I’ll suggest a doctor. Personal questions are welcome.','bot')}if(open)ci.focus()}
+$('#fab').onclick=()=>toggle(!$('#chat').classList.contains('open'));
+$('#x').onclick=()=>toggle(false);
+$('#cf').onsubmit=e=>{e.preventDefault();const v=ci.value.trim();if(v){ci.value='';ask(v)}};
+/* ask MedAI topics */
+function openAsk(q){toggle(true);if(q)ask(q)}
+['Which doctor should I see?','I have a fever','I feel stressed','I can’t sleep','Skin problems','Back or joint pain','Child health','Book appointment'].forEach(q=>{const b=document.createElement('button');b.className='chip';b.type='button';b.textContent=q;b.onclick=()=>openAsk(q);$('#topics').append(b)});
+$('#openchat').onclick=()=>openAsk();
+</script>
 </body>
-
 </html>
