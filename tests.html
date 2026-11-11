@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book a Lab Test | MedAI</title>
+<meta name="description" content="MedAI: AI-inspired solutions for better local healthcare.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem('medai-dark');if(t===null?matchMedia('(prefers-color-scheme:dark)').matches:t==='1')document.documentElement.dataset.theme='dark'}catch(e){}</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main id="main">
+<section><div class="wrap">
+<h2>Book a lab test</h2>
+<p class="lead">Choose your tests, pick a date and time slot, and either visit our lab or get your sample collected at home. Prices shown are sample prices for this demo.</p>
+<div class="tgrid" id="testGrid"></div>
+<form class="form" id="testForm" style="max-width:860px">
+<div class="full sum" id="sum" aria-live="polite">No tests selected yet. Tap a test above to add it.</div>
+<div><label for="tn">Patient name</label><input id="tn" required></div>
+<div><label for="tp">Phone number</label><input id="tp" type="tel" required></div>
+<div class="full"><label for="te">Email (for your confirmation, and to link results to your health report)</label><input id="te" type="email" required></div>
+<div><label for="td">Preferred date</label><input id="td" type="date" required></div>
+<div><label for="ts">Time slot</label><select id="ts" required><option>7:00 – 9:00 AM</option><option>9:00 – 11:00 AM</option><option>11:00 AM – 1:00 PM</option><option>4:00 – 6:00 PM</option></select></div>
+<div class="full"><b style="font-size:.88rem">Sample collection</b>
+<label class="opt"><input type="radio" name="tc" value="lab" checked> Visit our lab (free)</label>
+<label class="opt"><input type="radio" name="tc" value="home"> Home sample collection (+₹100)</label></div>
+<div class="full" id="addrBox" hidden><label for="ta">Home address</label><textarea id="ta" rows="2"></textarea></div>
+<div class="full"><button class="btn" type="submit">Confirm test booking</button></div>
+<div class="ok" id="testOk" aria-live="polite"></div>
+</form></div></section>
+
+<section style="padding-top:0"><div class="wrap">
+<h2>My test bookings</h2>
+<p class="lead">Bookings made on this device. You can cancel a booking before your appointment.</p>
+<div id="myTests"></div>
+</div></section>
+</main>
+<script src="config.js"></script>
+<script src="app.js"></script>
+<script src="pages.js"></script>
+</body>
+</html>
