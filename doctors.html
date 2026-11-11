@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Our Doctors | MedAI</title>
+<meta name="description" content="MedAI: AI-inspired solutions for better local healthcare.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem('medai-dark');if(t===null?matchMedia('(prefers-color-scheme:dark)').matches:t==='1')document.documentElement.dataset.theme='dark'}catch(e){}</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main id="main">
+<section id="staff" style="background:var(--soft)"><div class="wrap">
+<h2>Meet our healthcare team</h2>
+<p class="lead">Experienced professionals available at the hospital.</p>
+<div class="grid4" id="docs"></div>
+</div></section>
+
+<dialog id="dlg"><h3 id="dn"></h3><p id="dr" style="color:var(--teal);font-weight:700"></p><p id="dx" style="margin:12px 0 20px"></p><button class="btn" onclick="dlg.close()">Close</button></dialog>
+</main>
+<script src="config.js"></script>
+<script src="app.js"></script>
+<script src="pages.js"></script>
+</body>
+</html>

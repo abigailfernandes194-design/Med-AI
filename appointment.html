@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book an Appointment | MedAI</title>
+<meta name="description" content="MedAI: AI-inspired solutions for better local healthcare.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem('medai-dark');if(t===null?matchMedia('(prefers-color-scheme:dark)').matches:t==='1')document.documentElement.dataset.theme='dark'}catch(e){}</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main id="main">
+<section id="appointment"><div class="wrap">
+<h2>Book an appointment</h2>
+<p class="lead">Schedule a consultation with a healthcare professional.</p>
+<form class="form" id="apptForm">
+<div><label for="an">Patient name</label><input id="an" required></div>
+<div><label for="ap">Phone number</label><input id="ap" type="tel" required></div>
+<div class="full"><label for="aem">Email (links this visit to your health report)</label><input id="aem" type="email" placeholder="you@example.com"></div>
+<div><label for="ad">Appointment date</label><input id="ad" type="date" required></div>
+<div><label for="adep">Department</label><select id="adep" required><option value="">Select department</option><option>General Medicine</option><option>Cardiology</option><option>Pediatrics</option><option>Dermatology</option><option>Orthopedics</option></select></div>
+<div class="full"><label for="ar">Reason for appointment</label><textarea id="ar" rows="3"></textarea></div>
+<div class="full"><button class="btn" type="submit">Confirm appointment</button></div>
+<div class="ok" id="apptOk"></div>
+</form></div></section>
+</main>
+<script src="config.js"></script>
+<script src="app.js"></script>
+<script src="pages.js"></script>
+</body>
+</html>

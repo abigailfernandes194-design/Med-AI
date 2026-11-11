@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Register & Health Reports | MedAI</title>
+<meta name="description" content="MedAI: AI-inspired solutions for better local healthcare.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem('medai-dark');if(t===null?matchMedia('(prefers-color-scheme:dark)').matches:t==='1')document.documentElement.dataset.theme='dark'}catch(e){}</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main id="main">
+<section id="register"><div class="wrap">
+<h2>Create your patient profile</h2>
+<p class="lead">Register to access healthcare services.</p>
+<form class="form" id="regForm">
+<div><label for="rn">Full name</label><input id="rn" required></div>
+<div><label for="re">Email</label><input id="re" type="email" required></div>
+<div><label for="rd">Date of birth</label><input id="rd" type="date" required></div>
+<div><label for="rg">Gender</label><select id="rg" required><option value="">Select gender</option><option>Male</option><option>Female</option><option>Other</option></select></div>
+<div class="full"><label for="rp">Password</label><input id="rp" type="password" minlength="6" required></div>
+<div class="full"><button class="btn" type="submit">Create patient account</button></div>
+<div class="ok" id="regOk"></div>
+</form></div></section>
+
+
+<section style="padding-top:0"><div class="wrap">
+<h2>Get your health report</h2>
+<p class="lead">Past patients can have their visit summary emailed to them. You can also ask the chat assistant: “Email my health report”.</p>
+<form class="form" id="repForm">
+<div><label for="pe">Registered email</label><input id="pe" type="email" required></div>
+<div><label for="pd">Date of birth</label><input id="pd" type="date" required></div>
+<div class="full"><button class="btn" type="submit">Email my report</button></div>
+<div class="ok" id="repOk" aria-live="polite"></div>
+<p class="note full" style="margin:0">Demo tip: try <b>demo@medai.com</b> with date of birth <b>15-05-1990</b>.</p>
+</form></div></section>
+</main>
+<script src="config.js"></script>
+<script src="app.js"></script>
+<script src="pages.js"></script>
+</body>
+</html>
